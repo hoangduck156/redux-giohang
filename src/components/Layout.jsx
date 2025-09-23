@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
       </main>
       
       <footer className="footer">
-        <p>&copy; 2024 Redux Cart App</p>
+        <p>&copy; 2025 Redux Cart App</p>
       </footer>
     </div>
   );

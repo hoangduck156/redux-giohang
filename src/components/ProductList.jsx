@@ -14,14 +14,20 @@ const products = [
 
 const ProductList = () => {
   const dispatch = useDispatch();
+  const [notification, setNotification] = React.useState("");
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-  };
+    setNotification("Đã thêm sản phẩm vào giỏ hàng!");
+    setTimeout(() => setNotification(""), 2000);
+  }
 
   return (
     <div className="product-list">
       <h2>Danh sách sản phẩm</h2>
+      {notification && (
+        <div className="notification" style={{ color: 'green', marginBottom: 10 }}>{notification}</div>
+      )}
       <div className="products">
         {products.map(product => (
           <div key={product.id} className="product-card">

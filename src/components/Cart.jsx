@@ -6,6 +6,7 @@ import { validateCartItem } from '../utils/validation';
 const Cart = () => {
   const dispatch = useDispatch();
   const { items, total, quantity } = useSelector(state => state.cart);
+  const [notification, setNotification] = React.useState("");
 
   const handleQuantityChange = (id, newQuantity) => {
     const validation = validateCartItem({ quantity: newQuantity });
@@ -26,9 +27,15 @@ const Cart = () => {
   return (
     <div className="cart">
       <h2>Giỏ hàng ({quantity} sản phẩm)</h2>
+      {notification && (
+        <div className="notification" style={{ color: 'green', marginBottom: 10 }}>{notification}</div>
+      )}
       <div className="cart-items">
         {items.map(item => (
           <div key={item.id} className="cart-item">
+            <div className="item-image">
+              <img src={item.image} alt={item.title} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px' }} />
+            </div>
             <div className="item-info">
               <h4>{item.title}</h4>
               <p className="price">${item.price}</p>
@@ -64,7 +71,10 @@ const Cart = () => {
       </div>
       <div className="cart-summary">
         <h3>Tổng cộng: ${total.toFixed(2)}</h3>
-        <button className="btn-primary">Thanh toán</button>
+        <button className="btn-primary" onClick={() => {
+          setNotification("Thanh toán thành công!");
+          setTimeout(() => setNotification(""), 2000);
+        }}>Thanh toán</button>
       </div>
     </div>
   );
